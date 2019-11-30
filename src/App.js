@@ -3,6 +3,8 @@ import './App.css';
 import { Switch, Route } from 'react-router-dom';
 
 import HomePage from './pages/homepage/homepage.component'
+
+
 const Hats = () => {
   return (
     <p>Hats</p>
