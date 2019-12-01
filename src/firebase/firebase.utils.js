@@ -17,6 +17,41 @@ const config = {
     measurementId: "G-CV70EFNRGV"
   }
 
+  // Method to add the user to the database.
+export const createUserProfileDocument = async (userAuth, additionalData) => {
+  // if there is no user, return out the method.
+  if(!userAuth) return;
+
+  // user ref.
+  const userRef = firestore.doc(`users/${userAuth.uid}`);
+
+  // get the user from the ref.
+  const snapShop = await userRef.get();
+
+  // check if the user exists.
+  if(!snapShop.exists) {
+    // store the display name and email.
+    const { displayName, email } = userAuth;
+    // store when the user was created.
+    const createAt = new Date();
+
+    // add the user in the users table of the database.
+    try {
+      await userRef.set({
+        displayName,
+        email,
+        createAt,
+        ...additionalData
+      })
+    } catch(error) {
+      console.log("error creating user", error);
+    }
+
+  }
+
+  return userRef;
+}
+
 // init the app.
 firebase.initializeApp(config);
 
