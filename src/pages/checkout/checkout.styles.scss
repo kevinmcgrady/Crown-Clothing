@@ -28,4 +28,48 @@
       margin-left: auto;
       font-size: 36px;
     }
+
+    button {
+      margin-left: auto;
+      margin-top: 50px;
+      border-radius: 0 !important;
+      outline: none !important;
+      background-image: none !important;
+      box-shadow: none !important;
+    }
+
+
+    button span {
+        min-width: 165px !important;
+        width: auto !important;
+        height: 50px !important;
+        letter-spacing: 0.5px !important;
+        line-height: 50px !important;
+        padding: 0 35px 0 35px !important;
+        font-size: 15px !important;
+        background-color: black !important;
+        color: white !important;
+        text-transform: uppercase !important;
+        font-family: 'Open Sans Condensed' !important;
+        font-weight: bolder !important;
+        cursor: pointer !important;
+        display: flex !important;
+        justify-content: center !important;
+        background-image: none !important;
+        border-radius: 0 !important;
+        outline: none !important;
+
+        &:hover {
+          background-color: white !important;
+          color: black !important;
+          border: 1px solid black !important;
+        }
+    }
+
+    .test-warning {
+      text-align: center;
+      margin-top: 40px;
+      font-size: 24px;
+      color: red;
+    }
   }
