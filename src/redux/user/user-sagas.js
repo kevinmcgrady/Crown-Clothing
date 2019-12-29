@@ -10,7 +10,9 @@ import {
     signInSuccess, 
     signInFailure,
     signOutSuccess,
-    signOutFailure
+    signOutFailure,
+    signUpSuccess,
+    signUpFailure
 } from "./user.actions";
 
 import { getCurrentUser } from '../../firebase/firebase.utils';
@@ -77,12 +79,37 @@ export function* signOut() {
 export function* onSignOutStart() {
   yield takeLatest(UserActionTypes.SIGN_OUT_START, signOut)
 }
+
+export function* signUp({ payload: { displayName, email, password, confirmPassword } }) {
+
+  try {
+      if(password !== confirmPassword) {
+        return yield put(signInFailure('Passwords must match!'));
+      }
+
+      const { user } = yield auth.createUserWithEmailAndPassword(email, password);
+
+      const userRef = yield call(createUserProfileDocument, { ...user, displayName });
+      const userSnapShot = yield userRef.get();
+
+      yield put(signUpSuccess());
+      yield put(signInSuccess({ id: userSnapShot.id, ...userSnapShot.data() }));
+  } catch(error) {
+      yield put(signUpFailure(error.message));
+  }
+}
+
+export function* onSignUpStart() {
+  yield takeLatest(UserActionTypes.SIGN_UP_START, signUp);
+}
+
 // Root user saga.
 export function* userSagas() {
   yield all([
       call(onGoogleSignInStart),
       call(onEmailSignInStart),
       call(isUserAuthenticated),
-      call(onSignOutStart)
+      call(onSignOutStart),
+      call(onSignUpStart)
     ]);
 }
