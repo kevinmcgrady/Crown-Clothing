@@ -13,11 +13,9 @@ import CheckoutPage from './pages/checkout/checkout.component';
 import Header from "./components/header/header.component";
 
 import { connect } from 'react-redux';
-import { setCurrentUser } from './redux/user/user.actions';
 import { selectCurrentUser } from './redux/user/user.selector';
 
 class App extends React.Component {
-
   render() {
     return (
       <div>
@@ -33,16 +31,10 @@ class App extends React.Component {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    setCurrentUser: (user) => dispatch(setCurrentUser(user))
-  }
-}
-
 const mapStateToProps = (state) => {
   return {
     currentUser: selectCurrentUser(state)
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps)(App);
