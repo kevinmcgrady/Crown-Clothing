@@ -6,17 +6,23 @@ import { Switch, Route, Redirect } from "react-router-dom";
 
 // import header.
 import Header from "./components/header/header.component";
-import Spinner from './components/spinner/spinner.component';
+import Spinner from "./components/spinner/spinner.component";
 
 import { connect } from "react-redux";
 import { selectCurrentUser } from "./redux/user/user.selector";
 import { checkUserSession } from "./redux/user/user.actions";
 
+// Error Boundary.
+import ErrorBoundary from "./components/error-boundary/error-boundary.component";
+
 // Lazy loaded pages.
 const HomePage = lazy(() => import("./pages/homepage/homepage.component"));
 const ShopPage = lazy(() => import("./pages/shop/shop.component"));
-const SignInAndSignUpPage = lazy(() => import("./pages/sign-in-and-sign-up/sign-in-and-sign-up.component"));
+const SignInAndSignUpPage = lazy(() =>
+  import("./pages/sign-in-and-sign-up/sign-in-and-sign-up.component")
+);
 const CheckoutPage = lazy(() => import("./pages/checkout/checkout.component"));
+const ErrorPage = lazy(() => import("./pages/404/404.component"));
 
 const App = ({ checkUserSession, currentUser }) => {
   useEffect(() => {
@@ -27,20 +33,22 @@ const App = ({ checkUserSession, currentUser }) => {
     <div>
       <GlobalStyle />
       <Header />
-      <Switch>
+      <ErrorBoundary>
         <Suspense fallback={<Spinner />}>
-          <Route path="/" exact component={HomePage} />
-          <Route path="/shop" component={ShopPage} />
-          <Route
-            exact
-            path="/signin"
-            render={() =>
-              currentUser ? <Redirect to="/" /> : <SignInAndSignUpPage />
-            }
-          />
-          <Route exact path="/checkout" component={CheckoutPage} />
+          <Switch>
+            <Route path="/" exact component={HomePage} />
+            <Route path="/shop" component={ShopPage} />
+            <Route
+              path="/signin"
+              render={() =>
+                currentUser ? <Redirect to="/" /> : <SignInAndSignUpPage />
+              }
+            />
+            <Route path="/checkout" component={CheckoutPage} />
+            <Route component={ErrorPage} />
+          </Switch>
         </Suspense>
-      </Switch>
+      </ErrorBoundary>
     </div>
   );
 };

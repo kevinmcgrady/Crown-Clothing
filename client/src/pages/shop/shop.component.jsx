@@ -4,11 +4,16 @@ import "./shop.styles.scss";
 import { Route } from "react-router-dom";
 import { connect } from "react-redux";
 import { fetchCollectionsStart } from "../../redux/shop/shop.actions";
-import Spinner from '../../components/spinner/spinner.component';
+import Spinner from "../../components/spinner/spinner.component";
+import ErrorBoundary from "../../components/error-boundary/error-boundary.component";
 
 // Lazy loaded routes for the pages.
-const CollectionsOverviewContainer = lazy(() => import("../../components/collections-overview/collections-overview.container"));
-const CollectionPageContainer = lazy(() => import("../../pages/collection/collection.container"));
+const CollectionsOverviewContainer = lazy(() =>
+  import("../../components/collections-overview/collections-overview.container")
+);
+const CollectionPageContainer = lazy(() =>
+  import("../../pages/collection/collection.container")
+);
 
 const ShopPage = ({ fetchCollectionsStart, match }) => {
   useEffect(() => {
@@ -17,17 +22,19 @@ const ShopPage = ({ fetchCollectionsStart, match }) => {
 
   return (
     <div className="shop-page">
-      <Suspense fallback={<Spinner />}>
-        <Route
-          exact
-          path={`${match.path}`}
-          component={CollectionsOverviewContainer}
-        />
-        <Route
-          path={`${match.path}/:collectionId`}
-          component={CollectionPageContainer}
-        />
-      </Suspense>
+      <ErrorBoundary>
+        <Suspense fallback={<Spinner />}>
+          <Route
+            exact
+            path={`${match.path}`}
+            component={CollectionsOverviewContainer}
+          />
+          <Route
+            path={`${match.path}/:collectionId`}
+            component={CollectionPageContainer}
+          />
+        </Suspense>
+      </ErrorBoundary>
     </div>
   );
 };
