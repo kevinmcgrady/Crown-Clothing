@@ -7,6 +7,8 @@ const path = require('path');
 // if the process is not production, require the env package.
 if(process.env.NODE_ENV !== 'production') require('dotenv').config();
 
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+
 // Create the app and define the port.
 const app = express();
 const port = process.env.PORT || 5000;
@@ -17,6 +19,24 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // Use the cors package to allow cross-origin requests.
 app.use(cors());
+
+// Payment route.
+app.post('/payment', (req,res,next) => {
+    // Payment body for Stripe.
+    const body = {
+        source: req.body.token.id,
+        amount: req.body.amount,
+        currency: 'GBP'
+    };
+
+    stripe.charges.create(body, (stripeErr, stripeRes) => {
+        if(stripeErr) {
+            res.status(500).send({ error: stripeErr });
+        } else {
+            res.status(200).send({ success: stripeRes });
+        }
+    })
+})
 
 // if in production,
 if(process.env.NODE_ENV === "production") {
