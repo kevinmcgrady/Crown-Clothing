@@ -8,7 +8,7 @@ import {
   emailSignInStart
 } from "../../redux/user/user.actions";
 
-const SignIn = ({ emailSignInStart, googleSignInStart }) => {
+const SignIn = ({ emailSignInStart, googleSignInStart, errorMessage }) => {
   const [userCredentials, setUserCredentials] = useState({
     email: "",
     password: ""

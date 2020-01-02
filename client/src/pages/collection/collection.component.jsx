@@ -3,6 +3,7 @@ import "./collection.styles.scss";
 import CollectionItem from "../../components/collection-item/collection-item.component";
 import { connect } from "react-redux";
 import { selectCollection } from "../../redux/shop/shop.selectors";
+import ErrorPage from '../404/404.component';
 
 const CollectionPage = ({ collection }) => {
   if (collection) {
@@ -17,7 +18,7 @@ const CollectionPage = ({ collection }) => {
         </div>
       </div>
     );
-  }
+  } else return <ErrorPage />
 };
 
 const mapStateToProps = (state, ownProps) => {

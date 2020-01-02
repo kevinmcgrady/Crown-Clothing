@@ -7,4 +7,9 @@ export const selectCurrentUser = createSelector(
     (user) => user.currentUser
 )
 
+export const selectUserErrorMessage = createSelector(
+    [selectUser],
+    (user) => user.error
+)
+
 
