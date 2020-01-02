@@ -1,7 +1,7 @@
 // Import react package.
 import React, { useEffect } from "react";
-import "./App.css";
-// impport router.
+import { GlobalStyle } from './global.styles';
+// import router.
 import { Switch, Route, Redirect } from "react-router-dom";
 // Import pages,
 import HomePage from "./pages/homepage/homepage.component";
@@ -24,6 +24,7 @@ const App = ({ checkUserSession, currentUser }) => {
 
   return (
     <div>
+      <GlobalStyle />
       <Header />
       <Switch>
         <Route path="/" exact component={HomePage} />

@@ -1,5 +1,5 @@
 .checkout-page {
-    width: 55%;
+    width: 75%;
     min-height: 90vh;
     display: flex;
     flex-direction: column;
@@ -36,6 +36,10 @@
       outline: none !important;
       background-image: none !important;
       box-shadow: none !important;
+
+      @media screen and (max-width: 800px) {
+        width: 100%;
+      }
     }
 
 
@@ -68,8 +72,11 @@
 
     .test-warning {
       text-align: center;
-      margin-top: 40px;
       font-size: 24px;
       color: red;
+    }
+
+    @media screen and (max-width: 800px) {
+      width: 90%;
     }
   }
