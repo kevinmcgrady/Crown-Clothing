@@ -6,7 +6,8 @@ const INITIAL_STATE = {
     hidden: true,
     cartItems: [],
     displayNotification: false,
-    notificationMessage: null
+    notificationMessage: null,
+    notificationType: "success"
 }
 
 // Cart Reducer.
@@ -41,7 +42,8 @@ const CartReducer = (state = INITIAL_STATE, action) => {
             return {
                 ...state,
                 displayNotification: !state.displayNotification,
-                notificationMessage: action.payload
+                notificationMessage: action.payload.message,
+                notificationType: action.payload.type
             }
         default:
             return state

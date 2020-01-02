@@ -6,3 +6,10 @@ export const startPayment = (paymentDetails) => {
         payload: paymentDetails
     }
 }
+
+export const redirectTo = (location) => {
+    return {
+        type: CheckoutActionTypes.REDIRECT_TO,
+        payload: location
+    }
+}

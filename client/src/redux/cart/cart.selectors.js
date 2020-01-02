@@ -32,3 +32,8 @@ export const selectNotificationMessage = createSelector(
     (cart) => cart.notificationMessage
 )
 
+export const selectNotificationType = createSelector(
+    [selectCart],
+    (cart) => cart.notificationType
+)
+

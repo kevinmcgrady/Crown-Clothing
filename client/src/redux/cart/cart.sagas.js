@@ -13,9 +13,9 @@ export function* onSignOutSuccess() {
 }
 
 export function* toggleDisplayNotification() {
-    yield put(toggleNotification('Item Added'));
+    yield put(toggleNotification('Item Added', 'success'));
     yield delay(2000);
-    yield put(toggleNotification(null));
+    yield put(toggleNotification(null, null));
 }
 
 export function* onToggleDisplayNotification() {

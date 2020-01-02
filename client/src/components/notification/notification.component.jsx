@@ -1,20 +1,27 @@
 import React from "react";
 import "./notification.styles.scss";
-import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
-import { selectDisplayNotification, selectNotificationMessage } from '../../redux/cart/cart.selectors';
+import { connect } from "react-redux";
+import { createStructuredSelector } from "reselect";
+import {
+  selectDisplayNotification,
+  selectNotificationMessage,
+  selectNotificationType
+} from "../../redux/cart/cart.selectors";
 
-const Notification = ({ displayNotification, notificationMessage }) => {
+const Notification = ({ displayNotification, notificationMessage, notificationType }) => {
   return (
-    <div className={displayNotification ? `notification animate` : `notification`}>
+    <div
+      className={displayNotification ? `notification animate ${notificationType}` : `notification`}
+    >
       <p>{notificationMessage}</p>
     </div>
   );
 };
 
 const mapStateToProps = createStructuredSelector({
-    displayNotification: selectDisplayNotification,
-    notificationMessage: selectNotificationMessage
-})
+  displayNotification: selectDisplayNotification,
+  notificationMessage: selectNotificationMessage,
+  notificationType: selectNotificationType
+});
 
 export default connect(mapStateToProps)(Notification);
