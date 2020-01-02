@@ -7,6 +7,7 @@ import { Switch, Route, Redirect } from "react-router-dom";
 // import header.
 import Header from "./components/header/header.component";
 import Spinner from "./components/spinner/spinner.component";
+import Notification from './components/notification/notification.component';
 
 import { connect } from "react-redux";
 import { selectCurrentUser } from "./redux/user/user.selector";
@@ -32,6 +33,7 @@ const App = ({ checkUserSession, currentUser }) => {
   return (
     <div>
       <GlobalStyle />
+      <Notification />
       <Header />
       <ErrorBoundary>
         <Suspense fallback={<Spinner />}>

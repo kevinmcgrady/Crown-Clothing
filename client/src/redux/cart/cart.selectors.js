@@ -22,3 +22,8 @@ export const selectCartTotal = createSelector(
     (cartItems) => cartItems.reduce((accumaltedQuantity, cartItem) => accumaltedQuantity + cartItem.quantity * cartItem.price, 0)
 )
 
+export const selectDisplayNotification = createSelector(
+    [selectCart],
+    (cart) => cart.displayNotification
+)
+

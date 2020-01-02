@@ -4,7 +4,8 @@ import { addItemToCart, removeItemFromCart } from './cart.utils';
 // Initial state.
 const INITIAL_STATE = {
     hidden: true,
-    cartItems: []
+    cartItems: [],
+    displayNotification: false
 }
 
 // Cart Reducer.
@@ -34,6 +35,11 @@ const CartReducer = (state = INITIAL_STATE, action) => {
             return {
                 ...state,
                 cartItems: []
+            }
+        case CartActionTypes.TOGGLE_NOTIFICATION:
+            return {
+                ...state,
+                displayNotification: !state.displayNotification
             }
         default:
             return state
