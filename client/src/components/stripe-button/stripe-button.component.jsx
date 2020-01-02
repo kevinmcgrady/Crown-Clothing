@@ -1,25 +1,15 @@
 import React from "react";
 import "./stripe-button.styles.scss";
-import axios from "axios";
 import StripeCheckout from "react-stripe-checkout";
+import { connect } from 'react-redux';
+import { startPayment } from '../../redux/checkout/checkout.actions';
 
-const StripeCheckoutButton = ({ price }) => {
+const StripeCheckoutButton = ({ price, startPayment }) => {
   const priceForStripe = price * 100;
   const publishKey = "pk_test_KqA2Urc50O9BngLuqYyUOjpO";
 
   const onToken = token => {
-    axios({
-      url: "http://localhost:5000/payment",
-      method: "post",
-      data: {
-        amount: priceForStripe,
-        token: token
-      }
-    })
-      .then(response => alert("Payment Successful"))
-      .catch(error => {
-        alert("Payment Unsuccessful!");
-      });
+    startPayment({ token, priceForStripe });
   };
 
   return (
@@ -38,4 +28,8 @@ const StripeCheckoutButton = ({ price }) => {
   );
 };
 
-export default StripeCheckoutButton;
+const mapDispatchToProps = dispatch => ({
+  startPayment: (paymentDetails) => dispatch(startPayment(paymentDetails))
+})
+
+export default connect(null, mapDispatchToProps)(StripeCheckoutButton);
