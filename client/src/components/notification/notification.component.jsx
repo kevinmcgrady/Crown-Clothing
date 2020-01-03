@@ -6,7 +6,7 @@ import {
   selectDisplayNotification,
   selectNotificationMessage,
   selectNotificationType
-} from "../../redux/cart/cart.selectors";
+} from "../../redux/UI/ui.selectors";
 
 const Notification = ({ displayNotification, notificationMessage, notificationType }) => {
   return (

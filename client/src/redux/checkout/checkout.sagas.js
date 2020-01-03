@@ -1,9 +1,10 @@
 import { takeLatest, call, put, all, delay } from "redux-saga/effects";
 import CheckoutActionTypes from "../checkout/checkout.types";
-import { toggleNotification, clearCart } from '../cart/cart.actions';
-import { redirectTo } from './checkout.actions';
-
+import { clearCart } from '../cart/cart.actions';
+import { addNotification, removeNotification } from '../UI/ui.actions';
+import { push } from 'connected-react-router'
 import axios from 'axios';
+
 
 function* makePayment({ payload: { token, priceForStripe } }) {
   try {
@@ -16,17 +17,16 @@ function* makePayment({ payload: { token, priceForStripe } }) {
       }
     });
     
-    yield put(toggleNotification("Payment was successful", "success"));
-    yield delay(2000);
-    yield put(toggleNotification(null, null));
-    yield put(redirectTo('/shop'));
-    yield put(redirectTo(null));
+    yield put(push('/shop'));
     yield put(clearCart());
+    yield put(addNotification("Payment was successful", "success"));
+    yield delay(2000);
+    yield put(removeNotification());
 
   } catch (error) {
-    yield put(toggleNotification("Payment failed!", 'fail'));
+    yield put(addNotification("Payment failed!", 'fail'));
     yield delay(2000);
-    yield put(toggleNotification(null, null));
+    yield put(removeNotification());
   }
 }
 

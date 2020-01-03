@@ -34,10 +34,3 @@ export const clearCart = () => {
         type: CartActionTypes.CLEAR_CART
     }
 }
-
-export const toggleNotification = (message, type) => {
-    return {
-        type: CartActionTypes.TOGGLE_NOTIFICATION,
-        payload: { message, type }
-    }
-}

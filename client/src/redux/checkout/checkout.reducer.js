@@ -3,8 +3,7 @@ import CheckoutActionTypes from './checkout.types';
 const INITIAL_STATE = {
     isFetching: false,
     error: null,
-    success: null,
-    redirectURL: null
+    success: null
 }
 
 const CheckoutReducer = (state = INITIAL_STATE, action) => {
@@ -15,14 +14,6 @@ const CheckoutReducer = (state = INITIAL_STATE, action) => {
                 isFetching: true,
                 error: null,
                 success: null,
-            }
-        case CheckoutActionTypes.REDIRECT_TO:
-            return {
-                ...state,
-                isFetching: false,
-                error: null,
-                success: null,
-                redirectURL: action.payload
             }
         default:
             return state;

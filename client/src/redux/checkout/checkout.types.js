@@ -1,6 +1,5 @@
 const CheckoutActionTypes = {
-    START_PAYMENT: "START_PAYMENT",
-    REDIRECT_TO: "REDIRECT_TO"
+    START_PAYMENT: "START_PAYMENT"
 }
 
 export default CheckoutActionTypes;
