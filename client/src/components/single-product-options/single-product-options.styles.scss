@@ -1,0 +1,29 @@
+.product-options {
+    display: flex;
+
+    button {
+        margin-right: 10px;
+        min-width: unset;
+    }
+}
+
+.product-options-container {
+    @media screen and (max-width: 800px) {
+        display: flex;
+        flex-direction: column;
+
+        .product-options {
+            justify-content: center;
+        }
+    }
+}
+
+.product-options-container h2 {
+    margin-bottom: 0;
+}
+
+button.custom-button.inverted.option-selected {
+    background-color: black;
+    color: white;
+    border: unset;
+}

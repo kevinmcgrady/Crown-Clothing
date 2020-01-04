@@ -7,12 +7,11 @@ import { Switch, Route, Redirect } from "react-router-dom";
 // import header.
 import Header from "./components/header/header.component";
 import Spinner from "./components/spinner/spinner.component";
-import Notification from './components/notification/notification.component';
+import Notification from "./components/notification/notification.component";
 
 import { connect } from "react-redux";
 import { selectCurrentUser } from "./redux/user/user.selector";
 import { checkUserSession } from "./redux/user/user.actions";
-
 // Error Boundary.
 import ErrorBoundary from "./components/error-boundary/error-boundary.component";
 
@@ -23,6 +22,7 @@ const SignInAndSignUpPage = lazy(() =>
   import("./pages/sign-in-and-sign-up/sign-in-and-sign-up.component")
 );
 const CheckoutPage = lazy(() => import("./pages/checkout/checkout.component"));
+
 const ErrorPage = lazy(() => import("./pages/404/404.component"));
 
 const App = ({ checkUserSession, currentUser }) => {
