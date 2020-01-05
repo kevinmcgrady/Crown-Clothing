@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import "./single-product-options.styles.scss";
 import CustomButton from "../custom-button/custom-component";
 import { connect } from "react-redux";
@@ -10,17 +10,17 @@ const SingleProductOptions = ({ options, product, addItem }) => {
     ? { ...product, option: selectedOption }
     : product;
 
-    useEffect(() => {
-      initialOptionSelect();
-    }, [options])
-
-    const initialOptionSelect = () => {
+    const initialOptionSelect = useCallback(() => {
       if(options) {
         updateSelectedOption(Object.keys(options)[0]);
         const optionButtons = document.querySelectorAll(".options-container button");
         optionButtons[0].classList.add("option-selected");
       }
-    }
+    }, [options, updateSelectedOption])
+    
+    useEffect(() => {
+      initialOptionSelect();
+    }, [options, initialOptionSelect])
 
   const updateOption = e => {
     const option = e.target.getAttribute("data-option");

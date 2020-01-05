@@ -12,17 +12,15 @@ import Notification from "./components/notification/notification.component";
 import { connect } from "react-redux";
 import { selectCurrentUser } from "./redux/user/user.selector";
 import { checkUserSession } from "./redux/user/user.actions";
+
 // Error Boundary.
 import ErrorBoundary from "./components/error-boundary/error-boundary.component";
 
 // Lazy loaded pages.
 const HomePage = lazy(() => import("./pages/homepage/homepage.component"));
 const ShopPage = lazy(() => import("./pages/shop/shop.component"));
-const SignInAndSignUpPage = lazy(() =>
-  import("./pages/sign-in-and-sign-up/sign-in-and-sign-up.component")
-);
+const SignInAndSignUpPage = lazy(() => import("./pages/sign-in-and-sign-up/sign-in-and-sign-up.component"));
 const CheckoutPage = lazy(() => import("./pages/checkout/checkout.component"));
-
 const ErrorPage = lazy(() => import("./pages/404/404.component"));
 
 const App = ({ checkUserSession, currentUser }) => {
@@ -46,7 +44,12 @@ const App = ({ checkUserSession, currentUser }) => {
                 currentUser ? <Redirect to="/" /> : <SignInAndSignUpPage />
               }
             />
-            <Route path="/checkout" component={CheckoutPage} />
+            <Route
+              path="/checkout"
+              render={() =>
+                currentUser ? <CheckoutPage /> : <Redirect to="/signin" />
+              }
+            />
             <Route component={ErrorPage} />
           </Switch>
         </Suspense>
